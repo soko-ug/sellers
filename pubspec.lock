@@ -499,14 +499,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_nfc_kit:
-    dependency: "direct main"
-    description:
-      name: flutter_nfc_kit
-      sha256: "586a8309a7be4d9be307c46d5e9db1460a9f59a37a097c77d53e2f6bfc11be2d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.4.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -1309,6 +1301,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  shared_value:
+    dependency: "direct main"
+    description:
+      name: shared_value
+      sha256: "264a7de41096e10f5e471f92948d0b648217ecc86549cd3096319541cfd2b515"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   shimmer:
     dependency: "direct main"
     description:
