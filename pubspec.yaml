@@ -38,7 +38,7 @@ dependencies:
 
   intl: any
   cupertino_icons: ^1.0.5
-  get: ^4.6.5
+  get: ^4.6.5 
   shared_preferences: ^2.1.0
   connectivity_plus: 
   firebase_core: ^2.10.0
@@ -92,6 +92,7 @@ dependencies:
   scroll_to_index: ^3.0.1
   fl_chart: ^0.64.0
   nb_utils: ^6.0.6
+  # nb_utils: ^6.1.2
   pdf: ^3.10.4
   printing: ^5.11.0
   shared_value: ^3.0.0

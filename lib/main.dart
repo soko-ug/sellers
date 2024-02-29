@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sokosellers/controller/localization_controller.dart';
@@ -41,6 +42,9 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterL
 
 Future<void> main() async {
   setPathUrlStrategy();
+  // WidgetsFlutterBinding.ensureInitialized();
+  
+
   WidgetsFlutterBinding.ensureInitialized();
   if(kIsWeb && GetPlatform.isAndroid){
     await Permission.notification.isDenied.then((value) {
@@ -82,6 +86,8 @@ bool isSokoLoggedIn = false;
   //     DeviceOrientation.landscapeLeft,
   //     DeviceOrientation.landscapeRight
   //   ]);
+    await initialize();
+
   runApp(MyApp(languages: languages, orderID: orderID));
 
 }

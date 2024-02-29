@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sokosellers/controller/auth_controller.dart';
+import 'package:sokosellers/view/screens/home/sokoHome.dart';
 
 class SokoLoginScreen extends StatelessWidget {
   // final LoginController loginController = Get.put(LoginController());
@@ -36,7 +38,13 @@ class SokoLoginScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: Get.find<AuthController>().sokoLogin,
+              onPressed: (){
+                Get.find<AuthController>().sokoLogin;
+                
+                if(getStringAsync("access_token_code") != null){
+                  SokoHome().launch(context);
+                }
+              },
               child: Text('Login'),
             ),
           ],

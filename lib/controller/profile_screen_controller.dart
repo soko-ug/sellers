@@ -50,12 +50,13 @@ class ProfileController extends GetxController implements GetxService {
       if (response.statusCode == 200) {
         _userInfo = UserInfo.fromJson(response.body);
 
-        Get.find<AuthController>().setUserData(UserData(
-          name: '${_userInfo!.fName} ${_userInfo!.lName}',
-          phone: userInfo?.phone?.replaceAll('${CustomCountryCodePiker.getCountryCode(userInfo?.phone)}', ''),
-          countryCode: CustomCountryCodePiker.getCountryCode(userInfo?.phone),
-          qrCode: _userInfo?.qrCode,
-        ));
+        // Get.find<AuthController>().setUserData(UserData(
+        //   name: '${_userInfo!.fName} ${_userInfo!.lName}',
+        //   phone: userInfo?.phone?.replaceAll('${CustomCountryCodePiker.getCountryCode(userInfo?.phone)}', ''),
+        //   countryCode: CustomCountryCodePiker.getCountryCode(userInfo?.phone),
+        //   qrCode: _userInfo?.qrCode,
+        // )
+        // );
 
       } else {
         ApiChecker.checkApi(response);
@@ -82,11 +83,11 @@ class ProfileController extends GetxController implements GetxService {
 
       if (response.statusCode == 200) {
         await Get.find<AuthController>().updatePin(newPassword);
-        UserData? userData = Get.find<AuthController>().getUserData();
+        // UserData? userData = Get.find<AuthController>().getUserData();
 
-        Get.offAllNamed(RouteHelper.getLoginRoute(
-          countryCode: userData?.countryCode, phoneNumber: userData?.phone,
-        ));
+        // Get.offAllNamed(RouteHelper.getLoginRoute(
+          // countryCode: userData?.countryCode, phoneNumber: userData?.phone,
+        // ));
 
       } else {
         ApiChecker.checkApi(response);

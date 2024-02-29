@@ -345,7 +345,7 @@ class TransactionMoneyController extends GetxController implements GetxService {
     }
     if(!phoneNumber.contains('+')){
       //todo need check country code
-      phoneNumber = (Get.find<AuthController>().getUserData()!.countryCode!+phoneNumber.substring(1).trim());
+      // phoneNumber = (Get.find<AuthController>().getUserData()!.countryCode!+phoneNumber.substring(1).trim());
     }
     if(phoneNumber.contains(' ')){
       phoneNumber = phoneNumber.replaceAll(' ', '');

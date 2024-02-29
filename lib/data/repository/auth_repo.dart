@@ -22,10 +22,12 @@ class AuthRepo extends GetxService{
   Future<Response> verifyPhoneNumber({String? phoneNumber,String? otp}) async {
     return apiClient.postData(AppConstants.customerPhoneVerifyUri, {"phone": phoneNumber, "otp": otp});
   }
-   Future<Response> registration(Map<String,String> customerInfo,List<MultipartBody> multipartBody) async {
+  
+  Future<Response> registration(Map<String,String> customerInfo,List<MultipartBody> multipartBody) async {
      return await apiClient.postMultipartData(AppConstants.customerRegistrationUri, customerInfo,multipartBody);
    }
-   Future<Response> login({String? dialCode,String? phone, String? password}) async {
+  
+  Future<Response> login({String? dialCode,String? phone, String? password}) async {
      return await apiClient.postData(
        AppConstants.sokoLoginUri,
        {"phone": phone, "password": password, "dial_country_code": dialCode},
@@ -96,9 +98,11 @@ class AuthRepo extends GetxService{
    Future<Response> logout() async {
      return await apiClient.postData(AppConstants.customerLogoutUri,{});
    }
+   
    Future<Response> updateProfile(Map<String,String> profileInfo, List<MultipartBody> multipartBody) async {
      return await apiClient.postMultipartData(AppConstants.customerUpdateProfile, profileInfo, multipartBody);
    }
+   
    Future<Response>  pinVerifyApi({required String pin}) async {
      return await apiClient.postData(AppConstants.customerPinVerify,{'pin': pin});
    }
@@ -112,9 +116,11 @@ class AuthRepo extends GetxService{
    String? getUserToken() {
      return sharedPreferences.getString(AppConstants.token);
    }
+   
    bool isLoggedIn() {
      return sharedPreferences.containsKey(AppConstants.token);
    }
+
    void removeUserToken()async{
      await sharedPreferences.remove(AppConstants.token);
    }
@@ -198,9 +204,10 @@ class AuthRepo extends GetxService{
      return containsKey;
    }
 
+
    Future<void> setUserData(SokoUser userData) async{
      try{
-       await sharedPreferences.setString(AppConstants.userData, jsonEncode(userData.toJson()));
+       await sharedPreferences.setString(AppConstants.userDataSoko, jsonEncode(userData.toJson()));
      }
      catch(e){
        rethrow;
@@ -209,8 +216,9 @@ class AuthRepo extends GetxService{
 
    void removeUserData()=> sharedPreferences.remove(AppConstants.userData);
 
+
    String getUserData() {
-     return sharedPreferences.getString(AppConstants.userData) ?? '';
+     return sharedPreferences.getString(AppConstants.userDataSoko) ?? '';
    }
 
 

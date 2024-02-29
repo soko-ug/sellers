@@ -22,9 +22,9 @@ class AuthRepository {
   // LOG IN
     Future<LoginResponse> getLoginResponse(
        String? email,  String password,String loginBy) async {
-    var post_body = jsonEncode({"user_type": "delivery_boy","email": "${email}", "password": "$password",
+    var post_body = jsonEncode({"user_type": "seller","email": "${email}", "password": "$password",
       "login_by": loginBy});
-        final response = await ApiClient.postSoko(url: ("${AppConstants.baseUrl}/auth/login"),
+        final response = await ApiClient.postSoko(url: ("${AppConstants.baseUrl}auth/login"),
             headers: {"Content-Type": "application/json","X-Requested-With":"XMLApiClientRequest"}, body: post_body);
         print(response.body);
         

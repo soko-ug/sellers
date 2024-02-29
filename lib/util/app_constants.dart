@@ -6,7 +6,7 @@ import 'images.dart';
 
 class AppConstants {
   static const String appName = 'soko sellers';
-  static const String baseUrl =  'https://soko.ug/'; //'https://finmicro.sanaa.co';atic 192.168.11.101
+  static const String baseUrl =  'https://soko.ug/api/v2/'; //'https://finmicro.sanaa.co';atic 192.168.11.101
   static const String mainUrls = "https://soko.ug/"; // http://159.89.80.33:8080/   //getallusers http://127.0.0.1:8080/ 159.89.80.33 
   static const bool demo = false;
    static const double appVersion = 1.0;
@@ -62,7 +62,15 @@ class AppConstants {
 
   // Shared Key
   static const String theme = 'theme';
-  static const String token = 'token';
+  static const String token = '';
+
+
+  // soko's
+  static const String access_token = 'token';
+  static const String userDataSoko = 'user';
+  static const String userData = 'user';
+
+
   static const String customerCountryCode = 'customer_country_code';//not in project
   static const String languageCode = 'language_code';
   static const String topic = 'notify';
@@ -85,7 +93,6 @@ class AppConstants {
   static const String biometricAuth = 'biometric_auth';
   static const String biometricPin = 'biometric';
   static const String contactPermission = '';
-  static const String userData = 'user';
 
 
 

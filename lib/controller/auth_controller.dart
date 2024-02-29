@@ -105,9 +105,10 @@ class AuthController extends GetxController implements GetxService {
 
     var email = ''.obs;
     var password = ''.obs;
+    var access_token = ''.obs;
 
     void setEmail(String value) => email.value = value;
-  void setPassword(String value) => password.value = value;
+    void setPassword(String value) => password.value = value;
 
 
   sokoLogin() async {
@@ -135,14 +136,25 @@ class AuthController extends GetxController implements GetxService {
 
       // if(loginResponse.message.runtimeType == List){
       //   ToastComponent.showDialog(loginResponse.message!.join("\n"),context,gravity: Toast.center, duration:3);
-      //   return;
+      //   return; osa@sanaa.co
       // }
 
       // ToastComponent.showDialog(loginResponse.message!, context,
       //     gravity: Toast.center, duration: Toast.lengthLong);
       print(loginResponse.result);
+      // snackBar( title: 'Sample toast');
+      showCustomSnackBar("${loginResponse.message}");
+
+
+      // save the result, save the user token, save the
     } else {
-            print(loginResponse.result);
+      authRepo.saveUserToken("${loginResponse.access_token}").then((value) async {
+        //  await authRepo.updateToken();
+        
+       });
+            // print(loginResponse.result);
+            // showCustomSnackBar("${loginResponse.result}");
+            // setUserDatasoko(loginResponse.result); loginResponse.access_token
 
       //print('dd');
       // ToastComponent.showDialog(loginResponse.message!, context,
@@ -169,6 +181,63 @@ class AuthController extends GetxController implements GetxService {
 
 
 
+// set user 
+setUserDatasoko(loginResponse) async {
+    if (loginResponse.result == true) {
+      // is_logged_in.$ = true;
+
+      await sharedPreferences.setBool('isSokoLoggedIn', true);
+      // is_logged_in.save();
+      access_token.value = loginResponse.access_token;
+      await setValue("access_token_code", loginResponse.access_token);
+      await setValue("seller_id", loginResponse.user.id);
+      // access_token.save();
+      // seller_id.$ = loginResponse.user.id;
+      // seller_id.save();
+
+      
+
+
+
+
+    }
+  }
+
+
+  String? getAuthToken() {
+    return authRepo.getUserToken();
+  }
+
+
+  bool isLoggedIn() {
+    return authRepo.isLoggedIn();
+  }
+
+  void removeCustomerToken() {
+    authRepo.removeCustomerToken();
+  }
+
+  PageController pageController = PageController();
+  int _page = 0;
+
+  int get page => _page;
+  change(int a) {
+    _page = a;
+    update();
+  }
+
+  Future setUserData(SokoUser userData) async {
+    await authRepo.setUserData(userData);
+  }
+
+
+  SokoUser? getUserData(){
+    SokoUser? userData;
+    if(authRepo.getUserData() != '') {
+      userData = SokoUser.fromJson(jsonDecode(authRepo.getUserData()));
+    }
+    return userData;
+  }
 
 
   Future<String> biometricPin() async {
@@ -505,38 +574,7 @@ class AuthController extends GetxController implements GetxService {
     return response;
   }
 
-  String? getAuthToken() {
-    return authRepo.getUserToken();
-  }
 
-
-  bool isLoggedIn() {
-    return authRepo.isLoggedIn();
-  }
-
-  void removeCustomerToken() {
-    authRepo.removeCustomerToken();
-  }
-
-  PageController pageController = PageController();
-  int _page = 0;
-
-  int get page => _page;
-  change(int a) {
-    _page = a;
-    update();
-  }
-
-  Future setUserData(SokoUser userData) async {
-    await authRepo.setUserData(userData);
-  }
-  SokoUser? getUserData(){
-    SokoUser? userData;
-    if(authRepo.getUserData() != '') {
-      userData = SokoUser.fromJson(jsonDecode(authRepo.getUserData()));
-    }
-    return userData;
-  }
 
   void removeUserData()=>  authRepo.removeUserData();
 }
