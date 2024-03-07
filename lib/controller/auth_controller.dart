@@ -1,6 +1,6 @@
 
-import 'dart:async';
 import 'dart:convert';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +25,7 @@ import 'package:sokosellers/helper/route_helper.dart';
 import 'package:sokosellers/util/app_constants.dart';
 import 'package:sokosellers/view/base/custom_snackbar.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sokosellers/view/screens/home/sokoHome.dart';
 
 
 class AuthController extends GetxController implements GetxService {
@@ -74,6 +75,10 @@ class AuthController extends GetxController implements GetxService {
       }
     }
 
+    Future<String?> usertoken() async {
+     return authRepo.getUserToken();
+    }
+
     Future<void> updatePin(String pin) async {
       await authRepo.writeSecureData(AppConstants.biometricPin, pin);
     }
@@ -106,78 +111,50 @@ class AuthController extends GetxController implements GetxService {
     var email = ''.obs;
     var password = ''.obs;
     var access_token = ''.obs;
+    
 
     void setEmail(String value) => email.value = value;
     void setPassword(String value) => password.value = value;
 
+sokoLogin() async {
+  print('------now ----auth------cont-');
 
-  sokoLogin() async {
-    // var email = _emailController.text.toString();
-    // var password = _passwordController.text.toString();
-    // if (_login_by == 'email' && email == "") {
-    //   ToastComponent.showDialog(LangText(context).local!.enter_email, context,
-    //       gravity: Toast.center, duration: Toast.lengthLong);
-    //   return;
-    // } else if (_login_by == 'phone' && _phone == "") {
-    //   ToastComponent.showDialog(
-    //       LangText(context).local!.enter_phone_number, context,
-    //       gravity: Toast.center, duration: Toast.lengthLong);
-    //   return;
-    // } else if (password == "") {
-    //   ToastComponent.showDialog(LangText(context).local!.enter_password, context,
-    //       gravity: Toast.center, duration: Toast.lengthLong);
-    //   return;
-    // }
+  try {
+    var loginResponse = await AuthRepository().getLoginResponse(
+        email.value, password.value, login_by.value);
+    print('------now ----calling the repo------cont-');
 
-    var loginResponse = await AuthRepository()
-        .getLoginResponse(email.value , password.value, login_by.value);
-
-    if (loginResponse.result == false) {
-
-      // if(loginResponse.message.runtimeType == List){
-      //   ToastComponent.showDialog(loginResponse.message!.join("\n"),context,gravity: Toast.center, duration:3);
-      //   return; osa@sanaa.co
-      // }
-
-      // ToastComponent.showDialog(loginResponse.message!, context,
-      //     gravity: Toast.center, duration: Toast.lengthLong);
+    if (loginResponse != null && loginResponse.result == false) {
       print(loginResponse.result);
-      // snackBar( title: 'Sample toast');
+      print('------login------failed-');
       showCustomSnackBar("${loginResponse.message}");
-
-
-      // save the result, save the user token, save the
     } else {
-      authRepo.saveUserToken("${loginResponse.access_token}").then((value) async {
-        //  await authRepo.updateToken();
+      if (loginResponse != null) {
+        print(loginResponse.result);
+        await authRepo.saveUserToken("${loginResponse.access_token}");
+        await authRepo.updateToken();
+        print('------login------successful-');
         
-       });
-            // print(loginResponse.result);
-            // showCustomSnackBar("${loginResponse.result}");
-            // setUserDatasoko(loginResponse.result); loginResponse.access_token
 
-      //print('dd');
-      // ToastComponent.showDialog(loginResponse.message!, context,
-      //     gravity: Toast.center, duration: Toast.lengthLong);
-      // AuthHelper().setUserData(loginResponse);
+         if( Get.find<AuthController>().isLoggedIn()){
 
-      // final sharedPreferences = await SharedPreferences.getInstance();
-      //   await sharedPreferences.setString('access_token', '');
+          print("----------this is the token ------${authRepo.getUserToken()}");
+                  Get.to(() => SokoHome());;
+                }
+                else{ Get.back();
+                }
 
-      // final String? access_token = sharedPreferences.getString('access_token');
-
-      // access_token.load().whenComplete(() {
-      //   if (access_token.$!.isNotEmpty) {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) {
-      //         return Main();
-      //       }),
-      //     );
-      //   }
-      // });
+      } else {
+        // Handle case where loginResponse is null
+      }
     }
+  } catch (error) {
+    // Handle any exceptions thrown during login process
+    print('Error during login: $error');
+    // Display an error message to the user
+    showCustomSnackBar("An error occurred during login. Please try again.");
   }
+}
 
 
 

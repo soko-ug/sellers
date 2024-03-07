@@ -14,10 +14,10 @@
 //   Future<ProfileUpdateResponse> getProfileUpdateResponse(
 //        @required String name,@required String password) async {
 
-//     var post_body = jsonEncode({"id":"${user_id.$}","name": "${name}", "password": "$password"});
+//     var post_body = jsonEncode({"id":"${AppConfig.user_id}","name": "${name}", "password": "$password"});
 
 //     final response = await ApiRequest.post(url: ("${AppConfig.BASE_URL}/profile/update"),
-//         headers: {"Content-Type": "application/json", "Authorization": "Bearer ${access_token.$}"},body: post_body );
+//         headers: {"Content-Type": "application/json", "Authorization": "Bearer ${AppConfig.bToken}"},body: post_body );
 
 //     //print(response.body.toString());
 //     return profileUpdateResponseFromJson(response.body);
@@ -26,11 +26,11 @@
 //   Future<ProfileImageUpdateResponse> getProfileImageUpdateResponse(
 //       @required String image,@required String filename) async {
 
-//     var post_body = jsonEncode({"id":"${user_id.$}","image": "${image}", "filename": "$filename"});
+//     var post_body = jsonEncode({"id":"${AppConfig.user_id}","image": "${image}", "filename": "$filename"});
 //     //print(post_body.toString());
 
 //     final response = await ApiRequest.post(url: ("${AppConfig.BASE_URL}/profile/update-image"),
-//         headers: {"Content-Type": "application/json", "Authorization": "Bearer ${access_token.$}"},body: post_body );
+//         headers: {"Content-Type": "application/json", "Authorization": "Bearer ${AppConfig.bToken}"},body: post_body );
 
 //     //print(response.body.toString());
 //     return profileImageUpdateResponseFromJson(response.body);

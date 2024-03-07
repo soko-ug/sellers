@@ -11,7 +11,7 @@
 //   Future<LanguageListResponse> getLanguageList() async {
 //     String url = ( "${AppConfig.BASE_URL}/languages");
 //     final response = await ApiRequest.get(url: url,headers: {
-//       "App-Language": app_language.$!,
+//       "App-Language": AppConfig.mobile_app_code!,
 //     }
 //     );
 //     //print(response.body.toString());

@@ -22,6 +22,7 @@ import 'package:sokosellers/view/screens/home/widget/first_card_portion.dart';
 import 'package:sokosellers/view/screens/home/widget/linked_website.dart';
 import 'package:sokosellers/view/screens/home/widget/secend_card_portion.dart';
 import 'package:sokosellers/view/screens/home/widget/third_card_portion.dart';
+import 'package:sokosellers/view/sokoScreens/base/bottomNav.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -68,7 +69,8 @@ class _HomeScreenState extends State<HomeScreen> {
             // appBar: const AppBarBase(),
             body: Container(
               child: Text("Soko"),
-            )
+            ),
+
             
             // ExpandableBottomSheet(
             //     enableToggle: true,
@@ -99,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //     persistentHeader: const CustomPersistentHeader(),
             //     expandableContent: const CustomExpandableContent()
             // ),
+            
           
           );
         });

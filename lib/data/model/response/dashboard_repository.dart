@@ -8,7 +8,7 @@
 // class DashboardRepository {
 //   Future<DashboardSummaryResponse> getDashboardSummaryResponse() async {
 
-//     final response = await ApiRequest.get(url: ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/dashboard-summary/${user_id.$}"),headers: { "Authorization": "Bearer ${access_token.$}"});
+//     final response = await ApiRequest.get(url: ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/dashboard-summary/${AppConfig.user_id}"),headers: { "Authorization": "Bearer ${AppConfig.bToken}"});
 
 //     /*print("body\n");
 //     print(response.body.toString());*/

@@ -1,0 +1,13 @@
+import 'package:flutter/material.dart';
+
+class OrdersPage extends StatelessWidget {
+  const OrdersPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Container(
+              child: Text('orders'),
+
+    ));
+  }
+}

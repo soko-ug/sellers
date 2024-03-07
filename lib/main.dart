@@ -61,7 +61,7 @@ Future<void> main() async {
 
   cameras =await availableCameras();
 
-bool isSokoLoggedIn = false;
+  bool isSokoLoggedIn = false;
   final sharedPreferences = await SharedPreferences.getInstance();
 
   String access_token = '';
@@ -86,6 +86,11 @@ bool isSokoLoggedIn = false;
   //     DeviceOrientation.landscapeLeft,
   //     DeviceOrientation.landscapeRight
   //   ]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  
     await initialize();
 
   runApp(MyApp(languages: languages, orderID: orderID));

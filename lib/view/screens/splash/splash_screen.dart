@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sokosellers/controller/auth_controller.dart';
 import 'package:sokosellers/data/api/api_checker.dart';
 import 'package:sokosellers/util/images.dart';
 import 'package:sokosellers/view/base/custom_snackbar.dart';
@@ -103,21 +105,26 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
                 // final sharedPreferences = await SharedPreferences.getInstance();
 final sharedPreferences = await SharedPreferences.getInstance();
 
-      // ceck for auth state
-    //  await sharedPreferences.setBool('isSokoLoggedIn', false);
-    // final bool? repeat = prefs.getBool('repeat');
+     
     final bool? isLoggedIn = sharedPreferences.getBool('isSokoLoggedIn');
-    print(isLoggedIn);
-    print(isLoggedIn);
-    print(isLoggedIn);
+  
 
- 
-    if(isLoggedIn == false){ SokoLoginScreen().launch(context);
+    print("-------islogin----is---${Get.find<AuthController>().isLoggedIn()}-----------------");
+// Get.find<AuthController>().getAuthToken
+
+
+    if(Get.find<AuthController>().isLoggedIn() ==  false)
+    { 
+      // SokoHome().launch(context);
+      SokoLoginScreen().launch(context);
                             //  Get.to(   SokoLoginScreen());
-    } else(){ SokoHome().launch(context);};
+    } else{ 
+      // SokoLoginScreen().launch(context); 
+      SokoHome().launch(context);
+      };
     
-            },
-            duration: 10.seconds,
+    },
+            duration: GetNumUtils(10).seconds,
             child:   Center(
                child: Column(
                   mainAxisSize: MainAxisSize.min,

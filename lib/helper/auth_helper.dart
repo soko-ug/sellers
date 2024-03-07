@@ -9,8 +9,8 @@
 //     if (loginResponse.result == true) {
 //       is_logged_in.$ = true;
 //       SystemConfig.systemUser = loginResponse.user;
-//       access_token.$ = loginResponse.access_token;
-//       user_id.$ = loginResponse.user!.id;
+//       AppConfig.bToken = loginResponse.access_token;
+//       AppConfig.user_id = loginResponse.user!.id;
 //       user_name.$ = loginResponse.user!.name;
 //       user_email.$ = loginResponse.user!.email;
 //       user_phone.$ = loginResponse.user!.phone;
@@ -21,8 +21,8 @@
 
 //   clearUserData() {
 //       is_logged_in.$ = false;
-//       access_token.$ = "";
-//       user_id.$ = 0;
+//       AppConfig.bToken = "";
+//       AppConfig.user_id = 0;
 //       user_name.$ = "";
 //       user_email.$ = "";
 //       user_phone.$ = "";

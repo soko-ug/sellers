@@ -19,10 +19,10 @@ import 'package:sokosellers/util/app_constants.dart';
 class AuthRepository {
   
 
-  // LOG IN
+  // LOG IN "user_type": "seller",
     Future<LoginResponse> getLoginResponse(
        String? email,  String password,String loginBy) async {
-    var post_body = jsonEncode({"user_type": "seller","email": "${email}", "password": "$password",
+    var post_body = jsonEncode({"email": "${email}", "password": "$password",
       "login_by": loginBy});
         final response = await ApiClient.postSoko(url: ("${AppConstants.baseUrl}auth/login"),
             headers: {"Content-Type": "application/json","X-Requested-With":"XMLApiClientRequest"}, body: post_body);
@@ -82,12 +82,12 @@ class AuthRepository {
 
   //   print(url.toString());
 
-  //   print("Bearer ${access_token.$}");
+  //   print("Bearer ${AppConfig.bToken}");
   //   final response = await ApiClient.get(
   //     url: url,
   //     headers: {
-  //       "Authorization": "Bearer ${access_token.$}",
-  //       "App-Language": app_language.$!,
+  //       "Authorization": "Bearer ${AppConfig.bToken}",
+  //       "App-Language": AppConfig.mobile_app_code!,
   //     },
   //   );
   //   print(response.body);

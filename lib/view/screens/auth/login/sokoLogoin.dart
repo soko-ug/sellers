@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sokosellers/controller/auth_controller.dart';
+import 'package:sokosellers/controller/menu_controller.dart';
 import 'package:sokosellers/view/screens/home/sokoHome.dart';
+import 'package:sokosellers/view/screens/splash/splash_screen.dart';
 
 class SokoLoginScreen extends StatelessWidget {
   // final LoginController loginController = Get.put(LoginController());
@@ -39,13 +41,13 @@ class SokoLoginScreen extends StatelessWidget {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: (){
-                Get.find<AuthController>().sokoLogin;
+                 print('--------going to auth cont-----'); // Replace this with your desired action
                 
-                if(getStringAsync("access_token_code") != null){
-                  SokoHome().launch(context);
-                }
+                Get.find<MenuItemController>().resetNavBar();
+                Get.find<AuthController>().sokoLogin();
+
               },
-              child: Text('Login'),
+              child: Text('Login now'),
             ),
           ],
         ),

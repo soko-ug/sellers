@@ -11,7 +11,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:sokosellers/data/model/response/contact_model.dart';
 import 'package:sokosellers/helper/route_helper.dart';
 import 'package:get/get.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+// import 'package:gallery_saver/gallery_saver.dart';
 import 'package:sokosellers/util/app_constants.dart';
 import 'package:sokosellers/view/base/custom_snackbar.dart';
 import 'package:sokosellers/view/screens/transaction_money/widget/share_statement_widget.dart';
@@ -50,7 +50,7 @@ class ScreenShootWidgetController extends GetxController implements GetxService{
         final directory = await getApplicationDocumentsDirectory();
         final imageFile = File('${directory.path}/qr.png');
         imageFile.writeAsBytesSync(image!);
-        await GallerySaver.saveImage(imageFile.path,albumName: AppConstants.appName).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
+        // await GallerySaver.saveImage(imageFile.path,albumName: AppConstants.appName).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
       }
 
 

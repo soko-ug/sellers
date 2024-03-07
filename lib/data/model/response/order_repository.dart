@@ -15,7 +15,7 @@
 
 
 //     final response = await ApiRequest.get(url: url,headers: {
-//       "Authorization": "Bearer ${access_token.$}"
+//       "Authorization": "Bearer ${AppConfig.bToken}"
 //     } );
 //     print("url:" +url.toString());
 //     print("getOrderDetails response :" +response.body.toString());
@@ -30,10 +30,10 @@
 
 
 //     final response = await ApiRequest.get(url: (url),headers: {
-//       "Authorization": "Bearer ${access_token.$}"
+//       "Authorization": "Bearer ${AppConfig.bToken}"
 //     });
 //     print("order details url:" +url.toString());
-//     print("token :" +access_token.$!);
+//     print("token :" +AppConfig.bToken!);
 //     print("order details url:" +url.toString());
 //     print("order details "+response.body.toString());
 //     print("Cuomo estas");

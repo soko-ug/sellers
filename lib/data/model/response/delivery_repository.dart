@@ -17,9 +17,9 @@
 //       date_range = "",
 //       payment_type}) async {
 //     final response = await ApiRequest.get(url:
-//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/deliveries/${type}/${user_id.$}?date_range=$date_range&payment_type=$payment_type&page=$page")
+//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/deliveries/${type}/${AppConfig.user_id}?date_range=$date_range&payment_type=$payment_type&page=$page")
 //         ,
-//         headers: {"Authorization": "Bearer ${access_token.$}"});
+//         headers: {"Authorization": "Bearer ${AppConfig.bToken}"});
 
 //     print("body\n");
 //     print(response.body.toString());
@@ -28,9 +28,9 @@
 
 //   Future<EarningSummaryResponse> getEarningSummaryResponse() async {
 //     final response = await ApiRequest.get(url:
-//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/earning-summary/${user_id.$}")
+//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/earning-summary/${AppConfig.user_id}")
 //         ,
-//         headers: {"Authorization": "Bearer ${access_token.$}"});
+//         headers: {"Authorization": "Bearer ${AppConfig.bToken}"});
 
 //     /*print("body\n");
 //     print(response.body.toString());*/
@@ -39,9 +39,9 @@
 
 //   Future<CollectionSummaryResponse> getCollectionSummaryResponse() async {
 //     final response = await ApiRequest.get(url:
-//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/collection-summary/${user_id.$}")
+//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/collection-summary/${AppConfig.user_id}")
 //         ,
-//         headers: {"Authorization": "Bearer ${access_token.$}"});
+//         headers: {"Authorization": "Bearer ${AppConfig.bToken}"});
 
 //     /*print("body\n");
 //     print(response.body.toString());*/
@@ -50,9 +50,9 @@
 
 //   Future<EarningOrCollectionResponse> getEarningResponse({page = 1}) async {
 //     final response = await ApiRequest.get(url:
-//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/earning/${user_id.$}?page=${page}")
+//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/earning/${AppConfig.user_id}?page=${page}")
 //         ,
-//         headers: {"Authorization": "Bearer ${access_token.$}"});
+//         headers: {"Authorization": "Bearer ${AppConfig.bToken}"});
 
 //     /*print("body\n");
 //     print(response.body.toString());*/
@@ -61,9 +61,9 @@
 
 //   Future<EarningOrCollectionResponse> getCollectionResponse({page = 1}) async {
 //     final response = await ApiRequest.get(url:
-//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/collection/${user_id.$}?page=${page}")
+//       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/collection/${AppConfig.user_id}?page=${page}")
 //         ,
-//         headers: {"Authorization": "Bearer ${access_token.$}"});
+//         headers: {"Authorization": "Bearer ${AppConfig.bToken}"});
 
 //     /*print("body\n");
 //     print(response.body.toString());*/
@@ -74,7 +74,7 @@
 //     final response = await ApiRequest.get(url:
 //       ("${AppConfig.BASE_URL}/${AppConfig.DELIVERY_PREFIX}/cancel-request/${order_id}")
 //         ,
-//         headers: {"Authorization": "Bearer ${access_token.$}"});
+//         headers: {"Authorization": "Bearer ${AppConfig.bToken}"});
 
 //     /*print("body\n");
 //     print(response.body.toString());*/
@@ -84,7 +84,7 @@
 //   Future<DeliveryStatusChangeResponse> getDeliveryStatusChangeResponse({required status, required order_id}
 //       ) async {
 //     var post_body = jsonEncode({
-//       "delivery_boy_id": "${user_id.$}",
+//       "delivery_boy_id": "${AppConfig.user_id}",
 //       "status": "${status}",
 //       "order_id": "$order_id"
 //     });
@@ -94,7 +94,7 @@
 //         ,
 //         headers: {
 //           "Content-Type": "application/json",
-//           "Authorization": "Bearer ${access_token.$}"
+//           "Authorization": "Bearer ${AppConfig.bToken}"
 //         },
 //         body: post_body);
 
