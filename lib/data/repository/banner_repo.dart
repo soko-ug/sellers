@@ -10,4 +10,8 @@ class BannerRepo{
   Future<Response> getBannerList() async {
     return await apiClient.getData(AppConstants.customerBanner);
   }
+
+  Future<Response> getBrandsList() async {
+    return await apiClient.getData("brands");
+  }
 }

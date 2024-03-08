@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sokosellers/controller/auth_controller.dart';
+import 'package:sokosellers/controller/banner_controller.dart';
 import 'package:sokosellers/controller/home_controller.dart';
 import 'package:sokosellers/controller/menu_controller.dart';
 import 'package:sokosellers/util/app_constants.dart';
@@ -30,7 +31,7 @@ class _SokoHomeState extends State<SokoHome> {
   void initState() {
     super.initState();
     Get.find<MenuItemController>().selectHomePage(isUpdate: false);
-    Get.find<HomeController>().getAllBrandStrings();
+    Get.find<BannerController>().getBrandsList(true);
     // Get.find<AuthController>().checkBiometricWithPin();
   }
 
