@@ -70,6 +70,8 @@ AppBar buildAppBar2(double statusBarHeight, BuildContext context) {
             ],
           );
   }
+  
+  buildHomeSearchBox(BuildContext context) {}
 
 
 }
