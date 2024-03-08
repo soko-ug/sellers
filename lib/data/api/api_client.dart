@@ -62,20 +62,21 @@ class ApiClient extends GetxService {
        'Authorization': 'Bearer $token',
      };
 
-     if(('${deiceInfo.data['isPhysicalDevice']}' == 'true') || AppConstants.demo) {
-       _mainHeaders!.addAll({
-         'device-id': uniqueId,
-         'os': GetPlatform.isAndroid ? 'android' : 'ios',
-         'device-model': '${GetPlatform.isAndroid
-             ? '${deiceInfo.data['brand']} ${deiceInfo.data['device-model']}'
-             : ''} ${deiceInfo.data['model']}'.replaceAll(' null ', ' ')
-       });
-     }
+    //  if(('${deiceInfo.data['isPhysicalDevice']}' == 'true') || AppConstants.demo) {
+    //    _mainHeaders!.addAll({
+    //      'device-id': uniqueId,
+    //      'os': GetPlatform.isAndroid ? 'android' : 'ios',
+    //      'device-model': '${GetPlatform.isAndroid
+    //          ? '${deiceInfo.data['brand']} ${deiceInfo.data['device-model']}'
+    //          : ''} ${deiceInfo.data['model']}'.replaceAll(' null ', ' ')
+    //    });
+    //  }
    }
 
 static Future<http.Response> sokoGet(
-      {required String url,
-      Map<String, String>? headers,}) async {
+  {
+    required String url,
+    Map<String, String>? headers,}) async {
     Uri uri = Uri.parse(url);
     Map<String, String>? headerMap = commonHeader;
     if (headers != null) {
@@ -107,7 +108,9 @@ static Future<http.Response> sokoGet(
    Future<Response> getData(String uri, {Map<String, dynamic>? query, Map<String, String>? headers}) async {
     if(await ApiChecker.isVpnActive()) {
       return const Response(statusCode: -1, statusText: 'you are using vpn');
-    }else{
+    }
+    else
+    {
       try {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
         http.Response response = await http.get(
@@ -118,7 +121,6 @@ static Future<http.Response> sokoGet(
       } catch (e) {
         return Response(statusCode: 1, statusText: noInternetMessage);
       }
-
     }
    }
 

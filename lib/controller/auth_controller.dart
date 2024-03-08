@@ -122,32 +122,29 @@ sokoLogin() async {
   try {
     var loginResponse = await AuthRepository().getLoginResponse(
         email.value, password.value, login_by.value);
-    print('------now ----calling the repo------cont-');
 
-    if (loginResponse != null && loginResponse.result == false) {
-      print(loginResponse.result);
-      print('------login------failed-');
-      showCustomSnackBar("${loginResponse.message}");
-    } else {
-      if (loginResponse != null) {
-        print(loginResponse.result);
+    // if (loginResponse != null && loginResponse.result == false) {
+    //   print(loginResponse.result);
+    //   print('------login------failed-');
+    //   showCustomSnackBar("login error ------ ${loginResponse.message} now");
+    // } 
+
+    if (loginResponse != null) {
+        print("login success ------ ${loginResponse.result} --- now save the token");
         await authRepo.saveUserToken("${loginResponse.access_token}");
-        await authRepo.updateToken();
+        // await authRepo.updateToken();
         print('------login------successful-');
         
 
          if( Get.find<AuthController>().isLoggedIn()){
-
-          print("----------this is the token ------${authRepo.getUserToken()}");
-                  Get.to(() => SokoHome());;
-                }
+            print("----------this is the token ------${authRepo.getUserToken()}");
+                  Get.to(() => SokoHome());
+            }
                 else{ Get.back();
-                }
+            }
 
-      } else {
-        // Handle case where loginResponse is null
-      }
-    }
+      } 
+    
   } catch (error) {
     // Handle any exceptions thrown during login process
     print('Error during login: $error');
@@ -261,8 +258,8 @@ setUserDatasoko(loginResponse) async {
     }
   }
   void checkBiometricSupport() async {
-    final LocalAuthentication bioAuth = LocalAuthentication();
-    _isBiometricSupported = await bioAuth.canCheckBiometrics || await bioAuth.isDeviceSupported();
+    // final LocalAuthentication bioAuth = LocalAuthentication();
+    // _isBiometricSupported = await bioAuth.canCheckBiometrics || await bioAuth.isDeviceSupported();
   }
 
   Future<Response> checkPhone(String phoneNumber) async{

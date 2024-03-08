@@ -59,7 +59,7 @@ Future<void> main() async {
   await GetStorage.init();
   // await GetStorage.init();
 
-  cameras =await availableCameras();
+  // cameras =await availableCameras();
 
   bool isSokoLoggedIn = false;
   final sharedPreferences = await SharedPreferences.getInstance();

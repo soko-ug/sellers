@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sokosellers/view/sokoScreens/pages/filter.dart';
+import 'package:sokosellers/view/sokoScreens/pages/widget/placeholders.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -9,10 +10,10 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar:buildAppBar(60, context) ,
+        appBar:buildAppBar2(), //buildAppBar(60, context) ,
         body: Center(
           child: Container(
-            child: Text('Home'),
+            child: PlaceholderWidget(),
           )),
       ),
     );
@@ -42,7 +43,7 @@ class HomeTab extends StatelessWidget {
     );
   }
 
-AppBar buildAppBar2(double statusBarHeight, BuildContext context) {
+AppBar buildAppBar2() {
     return AppBar(
             title: Text(
         'SOKO',
@@ -71,7 +72,8 @@ AppBar buildAppBar2(double statusBarHeight, BuildContext context) {
           );
   }
   
-  buildHomeSearchBox(BuildContext context) {}
+buildHomeSearchBox(BuildContext context) {}
+
 
 
 }

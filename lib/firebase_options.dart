@@ -44,38 +44,44 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB9cOFAt0cCwoLGZNPMaeB8Ey_pQTusLRw',
-    appId: '1:120657316939:web:6d49c759fe2726cb7f11ce',
-    messagingSenderId: '120657316939',
-    projectId: 'sanaa-fi',
-    authDomain: 'sanaa-fi.firebaseapp.com',
-    storageBucket: 'sanaa-fi.appspot.com',
-    measurementId: 'G-XHMH5M7TRW',
+    apiKey: 'AIzaSyAwR1wxsVJbgWJl67DrggYhdD8zJsHKDf8',
+    appId: '1:268039391901:web:05760a55bd510a15166274',
+    messagingSenderId: '268039391901',
+    projectId: 'soko-86bf0',
+    authDomain: 'soko-86bf0.firebaseapp.com',
+    databaseURL: 'https://soko-86bf0.firebaseio.com',
+    storageBucket: 'soko-86bf0.appspot.com',
+    measurementId: 'G-7L13HDFELK',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB7tSpjNkiVjFa-9Jtz8XYYoTBAXj15sns',
-    appId: '1:120657316939:android:bc7c61e6fa3649ce7f11ce',
-    messagingSenderId: '120657316939',
-    projectId: 'sanaa-fi',
-    storageBucket: 'sanaa-fi.appspot.com',
+    apiKey: 'AIzaSyCiRYlOIe5k7Sl93n6KTuph5bZFTudlaWU',
+    appId: '1:268039391901:android:3fc671beba3e66d2166274',
+    messagingSenderId: '268039391901',
+    projectId: 'soko-86bf0',
+    databaseURL: 'https://soko-86bf0.firebaseio.com',
+    storageBucket: 'soko-86bf0.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBjxXyjJBLbYkTT_lgTGa5Is8FFb8S5Y1A',
-    appId: '1:120657316939:ios:a01b5bcfb996b07c7f11ce',
-    messagingSenderId: '120657316939',
-    projectId: 'sanaa-fi',
-    storageBucket: 'sanaa-fi.appspot.com',
-    iosBundleId: 'com.example.simbadesketop',
+    apiKey: 'AIzaSyDyoRyeF_wrRGi7xDbmLzVoCknNANeJ85U',
+    appId: '1:268039391901:ios:7ad50ad4d3ff8a5f166274',
+    messagingSenderId: '268039391901',
+    projectId: 'soko-86bf0',
+    databaseURL: 'https://soko-86bf0.firebaseio.com',
+    storageBucket: 'soko-86bf0.appspot.com',
+    androidClientId: '268039391901-4tga0gj0op60u8ote9of59nhrsn3f1fn.apps.googleusercontent.com',
+    iosBundleId: 'com.example.sokosellers',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBjxXyjJBLbYkTT_lgTGa5Is8FFb8S5Y1A',
-    appId: '1:120657316939:ios:5c468f88e0c19e047f11ce',
-    messagingSenderId: '120657316939',
-    projectId: 'sanaa-fi',
-    storageBucket: 'sanaa-fi.appspot.com',
-    iosBundleId: 'net.simba.sanaa',
+    apiKey: 'AIzaSyDyoRyeF_wrRGi7xDbmLzVoCknNANeJ85U',
+    appId: '1:268039391901:ios:59296eadf8d6e8f6166274',
+    messagingSenderId: '268039391901',
+    projectId: 'soko-86bf0',
+    databaseURL: 'https://soko-86bf0.firebaseio.com',
+    storageBucket: 'soko-86bf0.appspot.com',
+    androidClientId: '268039391901-4tga0gj0op60u8ote9of59nhrsn3f1fn.apps.googleusercontent.com',
+    iosBundleId: 'com.example.deeply.RunnerTests',
   );
 }
