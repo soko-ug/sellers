@@ -121,7 +121,21 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => ScreenShootWidgetController());
   Get.lazyPut(() => KycVerifyController(kycVerifyRepo: Get.find()));
 
-
+// fetch app data from backend
+// Get.find<BannerController>().getBannerList(reload);
+          Get.find<MenuItemController>().selectHomePage(isUpdate: false);
+          Get.find<BannerController>().getBrandsList(true);
+          Get.find<BannerController>().getTopBrandsList(true);
+          Get.find<BannerController>().getFeaturedCategoriesList(true);
+          Get.find<BannerController>().getFeaturedProductsList(true);
+          Get.find<BannerController>().getBestSellingProductsList(true);
+          Get.find<BannerController>().getallProductsList(true);
+          // Get.find<BannerController>().getShopProductsList(reload);
+          Get.find<BannerController>().getCategoriesList(true);
+          Get.find<BannerController>().getSliderList(true);
+          // Get.find<BannerController>().getTopBrandsList(reload);
+          // Get.find<BannerController>().getTopBrandsList(reload);
+          // Get.find<BannerController>().getTopBrandsList(reload);
 
   // Retrieving localized data
   Map<String, Map<String, String>> languages = {};

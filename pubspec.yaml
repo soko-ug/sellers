@@ -32,6 +32,7 @@ dependencies:
   # sAn$4.BL.cosAn$4fi
   json_annotation: ^4.8.1
   google_fonts: ^6.2.1
+  masonry_list_view_grid: ^1.0.1
   ndef: ^0.3.3
   convert: ^3.1.1
   logging: ^1.2.0

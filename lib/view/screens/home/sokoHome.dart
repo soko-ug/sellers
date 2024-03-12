@@ -30,9 +30,27 @@ class _SokoHomeState extends State<SokoHome> {
   @override
   void initState() {
     super.initState();
-    Get.find<MenuItemController>().selectHomePage(isUpdate: false);
-    Get.find<BannerController>().getBrandsList(true);
-    // Get.find<AuthController>().checkBiometricWithPin();
+   
+    // loadData(true);
+  }
+
+
+static Future<void> loadData(bool reload) async {
+          // Get.find<BannerController>().getBannerList(reload);
+          Get.find<MenuItemController>().selectHomePage(isUpdate: false);
+          Get.find<BannerController>().getBrandsList(reload);
+          Get.find<BannerController>().getTopBrandsList(reload);
+          Get.find<BannerController>().getFeaturedCategoriesList(reload);
+          Get.find<BannerController>().getFeaturedProductsList(reload);
+          Get.find<BannerController>().getBestSellingProductsList(reload);
+          // Get.find<BannerController>().getCategoryProductsList(reload);
+          // Get.find<BannerController>().getShopProductsList(reload);
+          Get.find<BannerController>().getCategoriesList(reload);
+          Get.find<BannerController>().getSliderList(reload);
+          // Get.find<BannerController>().getTopBrandsList(reload);
+          // Get.find<BannerController>().getTopBrandsList(reload);
+          // Get.find<BannerController>().getTopBrandsList(reload);
+
   }
 
   @override
