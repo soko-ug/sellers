@@ -1,3 +1,5 @@
+// import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sokosellers/data/api/api_checker.dart';
 import 'package:sokosellers/data/data_model/brand_response.dart';
 import 'package:sokosellers/data/data_model/category_response.dart';
@@ -23,6 +25,79 @@ class BannerController extends GetxController implements GetxService {
   var page = '1'.obs;
   var name = ''.obs;
   var CurrentPage = '1'.obs;
+  final _currentPage = 1.obs;
+
+
+
+final _allSokoProducts = <Product>[].obs;
+List<Product> get allSokoProducts => _allSokoProducts.toList();
+
+final _newlyLoadedProducts = <Product>[].obs;
+final ScrollController scrollController = ScrollController();
+
+  
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   // Fetch initial products
+  //   fetchProducts();
+  // }
+
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchAllProducts();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        fetchMoreProducts();
+      }
+    });
+  }
+
+
+  void fetchAllProducts() async {
+    if (!_isLoading) {
+      _isLoading = true;
+      var response = await GetConnect().get('https://your_api_url/products?page=${_currentPage.value}');
+      if (response.statusCode == 200) {
+        var productResponse = ProductMiniResponse.fromJson(response.body);
+        _newlyLoadedProducts.assignAll(productResponse.products);
+        _currentPage.value++;
+      } else {
+        // Handle error
+        print('Failed to load products: ${response.statusText}');
+      }
+      _isLoading = false;
+    }
+  }
+
+  Future<void> fetchMoreProducts() async {
+    if (_isLoading) {
+      return;
+    }
+    _isLoading = true;
+    try {
+      final Response response = await bannerRepo.getAllProductsList(_currentPage);
+      if (response.statusCode == 200) {
+        final ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
+        _newlyLoadedProducts.assignAll(productResponse.products);
+        _allSokoProducts.addAll(_newlyLoadedProducts);
+        _currentPage.value++;
+      } else {
+        // Handle error
+      }
+    } finally {
+      _isLoading = false;
+    }
+  }
+
+  void addNewProductsToAll() {
+    _allSokoProducts.addAll(_newlyLoadedProducts);
+    _newlyLoadedProducts.clear();
+  }
 
   List<BannerModel>? _bannerList;
   List<BannerModel>? get bannerList => _bannerList;
@@ -30,6 +105,47 @@ class BannerController extends GetxController implements GetxService {
   // get all Brands List
   List<Brands>? _allBrandStrings;
   List<Brands>? get allBrandStrings => _allBrandStrings;
+
+
+// get all products
+  List<Product>?  _allProducts;
+
+  List<Product>? get allProducts => _allProducts;
+
+  Future getallProductsList(bool reload, {bool isUpdate = true}) async{
+    if(_allProducts == null || reload) {
+      _isLoading = true;
+      _allProducts = null;
+      if (isUpdate) {
+        update();
+      }
+    }
+    
+    if (_allProducts == null) {
+      Response response = await bannerRepo.getAllProductsList(CurrentPage);
+      if (response.statusCode == 200) {
+        // _allProducts = [];
+  
+        ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
+        List<Product> product = productResponse.products;
+        product.forEach((products) {
+          _allProducts!.add(products);
+        });
+
+update();
+
+
+      } else {
+        _allProducts = [];
+        ApiChecker.checkApi(response);
+      }
+      _isLoading = false;
+      update();
+    }
+    return _allProducts;
+  }
+
+
 
   Future getBrandsList(bool reload, {bool isUpdate = true}) async{
           if(reload){
@@ -510,44 +626,6 @@ update();
       update();
     }
     return _relatedProducts;
-  }
-
-
-// get all products
-  List<Product>? _allProducts;
-  List<Product>? get allProducts => _allProducts;
-
-  Future getallProductsList(bool reload, {bool isUpdate = true}) async{
-    if(_allProducts == null || reload) {
-      _isLoading = true;
-      _allProducts = null;
-      if (isUpdate) {
-        update();
-      }
-    }
-    
-    if (_allProducts == null) {
-      Response response = await bannerRepo.getAllProductsList(CurrentPage);
-      if (response.statusCode == 200) {
-        // _allProducts = [];
-  
-        ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
-        List<Product> product = productResponse.products;
-        product.forEach((products) {
-          _allProducts!.add(products);
-        });
-
-update();
-
-
-      } else {
-        _allProducts = [];
-        ApiChecker.checkApi(response);
-      }
-      _isLoading = false;
-      update();
-    }
-    return _allProducts;
   }
 
 
