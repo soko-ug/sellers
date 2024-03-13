@@ -22,6 +22,7 @@ class BannerController extends GetxController implements GetxService {
   var id = '0'.obs;
   var page = '1'.obs;
   var name = ''.obs;
+  var CurrentPage = '1'.obs;
 
   List<BannerModel>? _bannerList;
   List<BannerModel>? get bannerList => _bannerList;
@@ -153,9 +154,7 @@ update();
           }
           }
 
-
 // Categories section
-
 
  // get all top Categories List
   List<Category>? _allCategories;
@@ -194,7 +193,6 @@ update();
     return _allCategories;
   }
   
-
   // get featured categories
   List<Category>? _featuredCategories;
   List<Category>? get featuredCategories => _featuredCategories;
@@ -240,7 +238,6 @@ update();
     return _featuredCategories;
   }
 
-
 // Products Section
 
 // featured products
@@ -281,8 +278,6 @@ update();
     }
     return _featuredProducts;
   }
-
-
 // best selling
   List<Product>? _bestSellingProducts;
   List<Product>? get bestSellingProducts => _bestSellingProducts;
@@ -532,12 +527,10 @@ update();
     }
     
     if (_allProducts == null) {
-      Response response = await bannerRepo.getAllProductsList();
+      Response response = await bannerRepo.getAllProductsList(CurrentPage);
       if (response.statusCode == 200) {
-        _allProducts = [];
-        
-       
-         
+        // _allProducts = [];
+  
         ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
         List<Product> product = productResponse.products;
         product.forEach((products) {

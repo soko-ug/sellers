@@ -203,7 +203,7 @@ class HomeWidgets extends StatelessWidget {
             _getFeaturedProducts(), 
             
             
-            _buildSectionTitle('New Products'),
+            _buildSectionTitle('Best Selling Products'),
             _getBestSellingProducts(), // Placeholder for new products
            
            
@@ -387,7 +387,7 @@ Widget _getBestSellingProducts(){
           color: Colors.grey[300],
           margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
 
-      child:  Container(
+          child:  Container(
           height: 350, // Adjust height as needed
           child: Container(
           height: 350, // Adjust height as needed
@@ -420,8 +420,8 @@ Widget _getBestSellingProducts(){
         )
         ))
         : _buildPlaceholder(height: 100.0);
-    });
-    }
+  });
+ }
 
 
   // Widget buildHomeAllProducts2(context) {
@@ -462,57 +462,95 @@ Widget _getBestSellingProducts(){
 
 
 // _getAllProducts
-    Widget _getAllProducts() {
-  return GetBuilder<BannerController>(builder: (controller) {
-     List<Product>? product = controller.allProducts;
+ Widget _getAllProducts() {
 
-    return controller.allProducts != null
-        ? Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: MasonryListViewGrid(
-    column: 2,
-    padding: const EdgeInsets.all(8.0),
-    children: List.generate(
-        100,
-        (index) => Container(
-            decoration: BoxDecoration(
-                color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(0.5),
-            ),
-            height: (150 + (index % 3 == 0 ? 50 : 0)).toDouble(),
-            child: Center(
-                    child: Text('Child ${index + 1}'),
-            ),
-        ),
-    ),
-),
-            
-            // MasonryGridView.count(
-            //           crossAxisCount: 2,
-            //           mainAxisSpacing: 14,
-            //           crossAxisSpacing: 14,
-            //           itemCount: controller.allProducts!.length,
-            //           shrinkWrap: true,
-            //           padding: EdgeInsets.only(top: 20.0, bottom: 10, left: 18, right: 18),
-            //           physics: NeverScrollableScrollPhysics(),
-                      
-            //           itemBuilder: (context, index) {
-            //             // Product product = controller.allProducts![index];
-            //             return ProductCard(
-            //   id: product![index].id,
-            //   image: product[index].thumbnail_image,
-            //   name: product[index].name,
-            //   main_price: product[index].main_price,
-            //   stroked_price: product[index].stroked_price,
-            // //   has_discount: product.has_discount,
-            // // discount: product.discount,
-            //             );
-            //           }
-            //           ),
+  return GetBuilder<BannerController>(builder: (Controller) {
+        
+       return  Controller.allProducts != null ? Container(
+          // height: Get.height /4,
+          color: Colors.grey[300],
+          margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+
+          child: MasonryGridView.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 14,
+          crossAxisSpacing: 14,
+          itemCount: Controller.allProducts!.length,
+          shrinkWrap: true,
+          padding: EdgeInsets.only(top: 20.0, bottom: 10, left: 18, right: 18),
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+             Product brand = Controller.allProducts![index];
+              return Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    
+                    Container(
+                      height: 300,
+                      width:300 ,
+                      child: Image(image: NetworkImage(brand.thumbnail_image))),
+                    SizedBox(height: 8),
+                    Text(
+                      brand.name,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              );
+            // return ProductCard(
+            //     id: _allProductList[index].id,
+            //     image: _allProductList[index].thumbnail_image,
+            //     name: _allProductList[index].name,
+            //     main_price: _allProductList[index].main_price,
+            //     stroked_price: _allProductList[index].stroked_price,
+            //     has_discount: _allProductList[index].has_discount,
+            //   discount: _allProductList[index].discount,
+            // );
+          }
+          
           )
+          
+          
+          
+        //    Container(
+        //   height: 450, // Adjust height as needed
+        //   child: Container(
+        //   height: 350, // Adjust height as needed
+        //   child: Column(
+        //     children: List.generate(Controller.allProducts!.length, (index) {
+        //     Product brand = Controller.allProducts![index];
+        //       return Padding(
+        //         padding: EdgeInsets.all(8.0),
+        //         child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.center,
+        //           children: <Widget>[
+                    
+        //             Container(
+        //               height: 300,
+        //               width:300 ,
+        //               child: Image(image: NetworkImage(brand.thumbnail_image))),
+        //             SizedBox(height: 8),
+        //             Text(
+        //               brand.name,
+        //               style: TextStyle(fontSize: 16),
+        //             ),
+        //           ],
+        //         ),
+        //       );
+        //     }),
+        //   ),
+        // )
+        // )
+        )
         : _buildPlaceholder(height: 100.0);
   });
+ 
+
+  
 }
+
 
   Widget _buildSectionTitle(String title) {
     return Padding(

@@ -130,7 +130,7 @@ Future<Map<String, Map<String, String>>> init() async {
           Get.find<BannerController>().getFeaturedProductsList(true);
           Get.find<BannerController>().getBestSellingProductsList(true);
           Get.find<BannerController>().getallProductsList(true);
-          // Get.find<BannerController>().getShopProductsList(reload);
+          // Get.find<BannerController>().getallProductsList(true);
           Get.find<BannerController>().getCategoriesList(true);
           Get.find<BannerController>().getSliderList(true);
           // Get.find<BannerController>().getTopBrandsList(reload);

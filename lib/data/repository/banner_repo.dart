@@ -84,11 +84,12 @@ class BannerRepo{
  Future<Response> getFilteredProductsList(id,name ,
       sort_key ,page ,brands ,categories ,min ,max  ) async {
     return await apiClient.getData("products/filter/$id?page=$page&name=$name");
+    // products/search?page=3&name&sort_key&brands&categories&min&max
  }
 
 //  all products
- Future<Response> getAllProductsList(  ) async {
-    return await apiClient.getData("products");
+ Future<Response> getAllProductsList(currentPage ) async {
+    return await apiClient.getData("products/search?page=$currentPage");
  }
 
 
