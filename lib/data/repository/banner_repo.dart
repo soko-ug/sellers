@@ -41,8 +41,8 @@ class BannerRepo{
 // Products Secions
 
 // featured products
- Future<Response> getFeatureProductsList({page = 1}) async {
-    return await apiClient.getData("products/featured?page=$page");
+ Future<Response> getFeatureProductsList() async {
+    return await apiClient.getData("products/featured?page=${1}");
  }
 
  // Best selling products
@@ -89,7 +89,7 @@ class BannerRepo{
 
 //  all products
  Future<Response> getAllProductsList(currentPage ) async {
-    return await apiClient.getData("products/search?page=$currentPage");
+    return await apiClient.getData("products/search?page=${currentPage}");
  }
 
 

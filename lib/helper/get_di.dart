@@ -19,7 +19,6 @@ import 'package:sokosellers/controller/language_controller.dart';
 import 'package:sokosellers/controller/localization_controller.dart';
 import 'package:sokosellers/controller/profile_screen_controller.dart';
 import 'package:sokosellers/controller/auth_controller.dart';
-// import 'package:sokosellers/controller/simba/simbaDesktopContllor.dart';
 import 'package:sokosellers/controller/transaction_controller.dart';
 import 'package:sokosellers/controller/splash_controller.dart';
 import 'package:sokosellers/controller/theme_controller.dart';
@@ -129,11 +128,11 @@ Future<Map<String, Map<String, String>>> init() async {
           Get.find<BannerController>().getFeaturedCategoriesList(true);
           Get.find<BannerController>().getFeaturedProductsList(true);
           Get.find<BannerController>().getBestSellingProductsList(true);
-          Get.find<BannerController>().getallProductsList(true);
+          // Get.find<BannerController>().getallProductsList(true);
           // Get.find<BannerController>().getallProductsList(true);
           Get.find<BannerController>().getCategoriesList(true);
           Get.find<BannerController>().getSliderList(true);
-          // Get.find<BannerController>().getTopBrandsList(reload);
+          Get.find<BannerController>().fetchAllSokoProducts(true);
           // Get.find<BannerController>().getTopBrandsList(reload);
           // Get.find<BannerController>().getTopBrandsList(reload);
 

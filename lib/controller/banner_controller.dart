@@ -25,47 +25,25 @@ class BannerController extends GetxController implements GetxService {
   var page = '1'.obs;
   var name = ''.obs;
   var CurrentPage = '1'.obs;
-  final _currentPage = 1.obs;
+  int _currentPage = 1 ;
 
 
 
-final _allSokoProducts = <Product>[].obs;
-List<Product> get allSokoProducts => _allSokoProducts.toList();
 
 final _newlyLoadedProducts = <Product>[].obs;
 final ScrollController scrollController = ScrollController();
 
   
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   // Fetch initial products
-  //   fetchProducts();
-  // }
-
-
-  @override
-  void onInit() {
-    super.onInit();
-    fetchAllProducts();
-
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        fetchMoreProducts();
-      }
-    });
-  }
 
 
   void fetchAllProducts() async {
     if (!_isLoading) {
       _isLoading = true;
-      var response = await GetConnect().get('https://your_api_url/products?page=${_currentPage.value}');
+      var response = await GetConnect().get('https://your_api_url/products?page=${_currentPage}');
       if (response.statusCode == 200) {
         var productResponse = ProductMiniResponse.fromJson(response.body);
         _newlyLoadedProducts.assignAll(productResponse.products);
-        _currentPage.value++;
+        _currentPage ++;
       } else {
         // Handle error
         print('Failed to load products: ${response.statusText}');
@@ -84,8 +62,8 @@ final ScrollController scrollController = ScrollController();
       if (response.statusCode == 200) {
         final ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
         _newlyLoadedProducts.assignAll(productResponse.products);
-        _allSokoProducts.addAll(_newlyLoadedProducts);
-        _currentPage.value++;
+        // _allSokoProducts.addAll(_newlyLoadedProducts);
+        _currentPage ++;
       } else {
         // Handle error
       }
@@ -94,9 +72,101 @@ final ScrollController scrollController = ScrollController();
     }
   }
 
-  void addNewProductsToAll() {
-    _allSokoProducts.addAll(_newlyLoadedProducts);
-    _newlyLoadedProducts.clear();
+  
+
+
+ List<Product>? _allSokoProducts;
+List<Product>? get allSokoProducts => _allSokoProducts;
+
+
+Future<void> fetchAllSokoProducts2() async {
+    _isLoading = true;
+    try {
+      final Response response = await bannerRepo.getAllProductsList(_currentPage);
+      if (response.statusCode == 200) {
+        final ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
+        _allSokoProducts!.assignAll(productResponse.products);
+        _currentPage ++;
+        update();
+      } else {
+        // Handle error
+      }
+    } finally {
+      _isLoading = false;
+    }
+  }
+
+
+   List<Product>? _newlyLoadedSokoProducts;
+   List<Product>? get newlyLoadedSokoProducts => _newlyLoadedSokoProducts;
+
+
+  Future<void> fetchMoreSokoProducts() async {
+    if (_isLoading) {
+      return;
+    }
+    _isLoading = true;
+    try {
+      final Response response = await bannerRepo.getAllProductsList(_currentPage);
+      if (response.statusCode == 200) {
+        final ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
+        _newlyLoadedSokoProducts!.assignAll(productResponse.products);
+        _allSokoProducts!.addAll(_newlyLoadedSokoProducts!);
+        _currentPage++;
+        _newlyLoadedSokoProducts!.clear();
+        update();
+      } else {
+        // Handle error
+      }
+    } finally {
+      _isLoading = false;
+    }
+  }
+  
+// void addNewProductsToAll() {
+//     fetchMoreSokoProducts();
+//     _allSokoProducts!.addAll(_newlyLoadedSokoProducts!);
+//     _newlyLoadedSokoProducts!.clear();
+//   }
+
+
+  Future fetchAllSokoProducts(bool reload, {bool isUpdate = true}) async{
+    if( reload) {
+      _isLoading = true;
+      _allSokoProducts = null;
+      if (isUpdate) {
+        update();
+      }
+    }
+    
+    if (_allSokoProducts == null) {
+      Response response = await bannerRepo.getAllProductsList(1);
+      if (response.statusCode == 200) {
+        _allSokoProducts = [];
+        
+       
+         
+        ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
+        List<Product> product = productResponse.products;
+        // _allSokoProducts!.assignAll(productResponse.products);
+
+        product.forEach((products) {
+          _allSokoProducts!.add(products);
+        });
+
+        _currentPage ++;
+
+      update();
+
+
+      } else {
+        _allSokoProducts = [];
+        ApiChecker.checkApi(response);
+      }
+      _isLoading = false;
+      update();
+    }
+    return _allSokoProducts;
   }
 
   List<BannerModel>? _bannerList;
@@ -112,40 +182,7 @@ final ScrollController scrollController = ScrollController();
 
   List<Product>? get allProducts => _allProducts;
 
-  Future getallProductsList(bool reload, {bool isUpdate = true}) async{
-    if(_allProducts == null || reload) {
-      _isLoading = true;
-      _allProducts = null;
-      if (isUpdate) {
-        update();
-      }
-    }
-    
-    if (_allProducts == null) {
-      Response response = await bannerRepo.getAllProductsList(CurrentPage);
-      if (response.statusCode == 200) {
-        // _allProducts = [];
   
-        ProductMiniResponse productResponse = ProductMiniResponse.fromJson(response.body);
-        List<Product> product = productResponse.products;
-        product.forEach((products) {
-          _allProducts!.add(products);
-        });
-
-update();
-
-
-      } else {
-        _allProducts = [];
-        ApiChecker.checkApi(response);
-      }
-      _isLoading = false;
-      update();
-    }
-    return _allProducts;
-  }
-
-
 
   Future getBrandsList(bool reload, {bool isUpdate = true}) async{
           if(reload){
@@ -343,8 +380,10 @@ update();
 
 
 
-update();
-      } else {
+    update();
+    
+    } 
+    else {
         _featuredCategories = [];
         ApiChecker.checkApi(response);
       }
@@ -382,7 +421,7 @@ update();
           _featuredProducts!.add(products);
         });
 
-update();
+      update();
 
 
       } else {
@@ -394,6 +433,9 @@ update();
     }
     return _featuredProducts;
   }
+
+
+
 // best selling
   List<Product>? _bestSellingProducts;
   List<Product>? get bestSellingProducts => _bestSellingProducts;

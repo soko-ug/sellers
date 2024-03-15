@@ -183,7 +183,74 @@ buildHomeSearchBox(BuildContext context) {}
 }
 
 
-class HomeWidgets extends StatelessWidget {
+class HomeWidgets extends StatefulWidget {
+  @override
+  State<HomeWidgets> createState() => _HomeWidgetsState();
+
+  
+}
+
+class _HomeWidgetsState extends State<HomeWidgets> {
+  // BannerController
+    final BannerController controller = Get.put(BannerController(bannerRepo: Get.find()));
+  final ScrollController scrollController = ScrollController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //    print("_______________Fetching all products___________________");
+  //   // controller.fetchAllSokoProducts(true);
+  //   print("_______________ products____Fetched_______________");
+
+  //   scrollController.addListener(() {
+  //     if (scrollController.position.pixels ==
+  //         scrollController.position.maxScrollExtent) {
+  //           print("_______________Fetching more products___________________");
+        
+  //     }
+  //   });
+  // }
+
+   final _scrollController = ScrollController();
+      final _list = List.generate(20, (index) => 'Item ${index + 1}');
+      int _currentPage = 1;
+
+
+
+   @override
+      void initState() {
+        super.initState();
+        _scrollController.addListener(_loadMore);
+      }
+    
+
+
+  @override
+      void dispose() {
+        _scrollController.dispose();
+        super.dispose();
+      }
+
+      void _loadMore() {
+        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+         controller.fetchMoreSokoProducts();
+          print("_______________Fetching more products___________________");
+
+          // setState(() {
+          //   _currentPage++;
+          //   _list.addAll(List.generate(20, (index) => 'Item ${index + 1 + _currentPage * 20}'));
+          // });
+        }
+      }
+
+// @override
+//   void onInit() {
+//     super.onInit();
+   
+//   }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -286,7 +353,6 @@ Widget _getBrands(){
     });
     }
 
-
 // brands
 Widget _getCategories(){
   return GetBuilder<BannerController>(builder: (Controller) {
@@ -330,7 +396,6 @@ Widget _getCategories(){
         : _buildPlaceholder(height: 100.0);
     });
     }
-
 
     // Featured Products
 Widget _getFeaturedProducts(){
@@ -377,7 +442,6 @@ Widget _getFeaturedProducts(){
     });
     }
 
-
    // Best Products
 Widget _getBestSellingProducts(){
   return GetBuilder<BannerController>(builder: (Controller) {
@@ -423,50 +487,12 @@ Widget _getBestSellingProducts(){
   });
  }
 
-
   // Widget buildHomeAllProducts2(context) {
-  //   if (_isAllProductInitial && _allProductList.length == 0) {
-  //     return SingleChildScrollView(
-  //         child: ShimmerHelper().buildProductGridShimmer(
-  //             scontroller: _allProductScrollController));
-  //   } else if (_allProductList.length > 0) {
-  //     return MasonryGridView.count(
-  //         crossAxisCount: 2,
-  //         mainAxisSpacing: 14,
-  //         crossAxisSpacing: 14,
-  //         itemCount: controller.bestSellingProducts!.length,
-  //         shrinkWrap: true,
-  //         padding: EdgeInsets.only(top: 20.0, bottom: 10, left: 18, right: 18),
-  //         physics: NeverScrollableScrollPhysics(),
-  //         itemBuilder: (context, index) {
-  //           return ProductCard(
-  //               id: product.id,
-  //               image: product.thumbnail_image,
-  //               name: product.name,
-  //               main_price: product.main_price,
-  //               stroked_price: product.stroked_price,
-  //               has_discount: product.has_discount,
-  //             discount: product.discount,
-  //           );
-  //         }
-  //         );
-  //   } else if (_totalAllProductData == 0) {
-  //     return Center(
-  //         child: Text(
-  //             AppLocalizations.of(context).common_no_product_is_available));
-  //   } else {
-  //     return Container(); // should never be happening
-  //   }
-  // }
-
-
-
-// _getAllProducts
  Widget _getAllProducts() {
 
   return GetBuilder<BannerController>(builder: (Controller) {
         
-       return  Controller.allProducts != null ? Container(
+       return  Controller.allSokoProducts != null ? Container(
           // height: Get.height /4,
           color: Colors.grey[300],
           margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -475,12 +501,12 @@ Widget _getBestSellingProducts(){
           crossAxisCount: 2,
           mainAxisSpacing: 14,
           crossAxisSpacing: 14,
-          itemCount: Controller.allProducts!.length,
+          itemCount: Controller.allSokoProducts!.length,
           shrinkWrap: true,
           padding: EdgeInsets.only(top: 20.0, bottom: 10, left: 18, right: 18),
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-             Product brand = Controller.allProducts![index];
+             Product brand = Controller.allSokoProducts![index];
               return Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Column(
@@ -499,50 +525,14 @@ Widget _getBestSellingProducts(){
                   ],
                 ),
               );
-            // return ProductCard(
-            //     id: _allProductList[index].id,
-            //     image: _allProductList[index].thumbnail_image,
-            //     name: _allProductList[index].name,
-            //     main_price: _allProductList[index].main_price,
-            //     stroked_price: _allProductList[index].stroked_price,
-            //     has_discount: _allProductList[index].has_discount,
-            //   discount: _allProductList[index].discount,
-            // );
+           
           }
           
           )
           
           
           
-        //    Container(
-        //   height: 450, // Adjust height as needed
-        //   child: Container(
-        //   height: 350, // Adjust height as needed
-        //   child: Column(
-        //     children: List.generate(Controller.allProducts!.length, (index) {
-        //     Product brand = Controller.allProducts![index];
-        //       return Padding(
-        //         padding: EdgeInsets.all(8.0),
-        //         child: Column(
-        //           crossAxisAlignment: CrossAxisAlignment.center,
-        //           children: <Widget>[
-                    
-        //             Container(
-        //               height: 300,
-        //               width:300 ,
-        //               child: Image(image: NetworkImage(brand.thumbnail_image))),
-        //             SizedBox(height: 8),
-        //             Text(
-        //               brand.name,
-        //               style: TextStyle(fontSize: 16),
-        //             ),
-        //           ],
-        //         ),
-        //       );
-        //     }),
-        //   ),
-        // )
-        // )
+        
         )
         : _buildPlaceholder(height: 100.0);
   });
@@ -550,7 +540,6 @@ Widget _getBestSellingProducts(){
 
   
 }
-
 
   Widget _buildSectionTitle(String title) {
     return Padding(
